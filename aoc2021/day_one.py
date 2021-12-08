@@ -1,17 +1,18 @@
-def part_one(input_data):
-    if len(input_data) == 0:
-        return 0
-
-    previous_input_value = input_data[0]
+def part_one(measurements):
+    previous_measurement = None
     total_increments = 0
 
-    for current_input_value in input_data:
-        if current_input_value > previous_input_value:
-            total_increments = total_increments + 1
-        previous_input_value = current_input_value
+    for measurement in measurements:
+        if previous_measurement:
+            if measurement > previous_measurement:
+                total_increments = total_increments + 1
+        previous_measurement = measurement
 
     return total_increments
 
 
-def part_two(input_data):
-    pass
+def part_two(measurements):
+    sliding_windows = (measurements[index:index + 3] for index, _ in enumerate(measurements))
+    sliding_windows_totals = (sum(sliding_window) for sliding_window in sliding_windows if len(sliding_window) == 3)
+
+    return part_one(sliding_windows_totals)

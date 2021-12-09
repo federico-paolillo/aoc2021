@@ -1,5 +1,6 @@
 import unittest
-from aoc2021.day_three import part_one
+
+from aoc2021.day_three import part_one, part_two
 
 _PUZZLE_READINGS = [
     0b000011001000,
@@ -1034,7 +1035,6 @@ class MyTestCase(unittest.TestCase):
 
     def test_day_three_part_one_returns_0_0_for_no_input(self):
         readings = [
-
         ]
 
         gamma_rate, epsilon_rate = part_one(readings)
@@ -1053,3 +1053,50 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(gamma_rate, 9)
         self.assertEqual(epsilon_rate, 22)
+
+    def test_day_three_part_two_solves_example_readings_correctly(self):
+        readings = [
+            0b00100,
+            0b11110,
+            0b10110,
+            0b10111,
+            0b10101,
+            0b01111,
+            0b00111,
+            0b11100,
+            0b10000,
+            0b11001,
+            0b00010,
+            0b01010
+        ]
+
+        oxygen_generator_rating, co2_scrubber_rating = part_two(readings)
+
+        self.assertEqual(oxygen_generator_rating, 23)
+        self.assertEqual(co2_scrubber_rating, 10)
+
+    def test_day_three_part_two_solves_puzzle_readings_correctly(self):
+        oxygen_generator_rating, co2_scrubber_rating = part_two(_PUZZLE_READINGS)
+
+        self.assertEqual(oxygen_generator_rating * co2_scrubber_rating, 3414905)
+
+    def test_day_three_part_two_returns_0_0_for_no_input(self):
+        readings = [
+        ]
+
+        oxygen_generator_rating, co2_scrubber_rating = part_two(readings)
+
+        self.assertEqual(oxygen_generator_rating, 0)
+        self.assertEqual(co2_scrubber_rating, 0)
+
+    def test_day_three_part_two_handles_numbers_of_different_lengths(self):
+        readings = [
+            0b01100,
+            0b11011,
+            0b00001
+        ]
+
+        oxygen_generator_rating, co2_scrubber_rating = part_two(readings)
+
+        self.assertEqual(oxygen_generator_rating, 12)
+        self.assertEqual(co2_scrubber_rating, 27)

@@ -1,6 +1,6 @@
 import unittest
 
-from aoc2021.day_two import part_one
+from aoc2021.day_two import part_one, part_two
 
 _PUZZLE_COMMANDS = [
     "forward 1",
@@ -1051,6 +1051,54 @@ class DayTwoTestCase(unittest.TestCase):
         ]
 
         hposition, depth = part_one(0, 0, commands)
+
+        self.assertEqual(hposition, 0)
+        self.assertEqual(depth, 0)
+
+    def test_day_two_part_two_solves_example_commands_correctly(self):
+        commands = [
+            "forward 5",
+            "down 5",
+            "forward 8",
+            "up 3",
+            "down 8",
+            "forward 2"
+        ]
+
+        hposition, depth = part_two(0, 0, commands)
+
+        self.assertEqual(hposition, 15)
+        self.assertEqual(depth, 60)
+
+    def test_day_two_part_two_solves_puzzle_commands_correctly(self):
+        hposition, depth = part_two(0, 0, _PUZZLE_COMMANDS)
+
+        self.assertEqual(hposition * depth, 1727785422)
+
+    def test_day_two_part_two_ignores_wrong_commands(self):
+        commands = [
+            "forward 5",
+            "down 5",
+            "forward 8",
+            "up 3",
+            "down 8",
+            "sideways 18",
+            "forward forward"
+            "",
+            None,
+            "forward 2"
+        ]
+
+        hposition, depth = part_two(0, 0, commands)
+
+        self.assertEqual(hposition, 15)
+        self.assertEqual(depth, 60)
+
+    def test_day_two_part_two_returns_0_0_for_no_input(self):
+        commands = [
+        ]
+
+        hposition, depth = part_two(0, 0, commands)
 
         self.assertEqual(hposition, 0)
         self.assertEqual(depth, 0)

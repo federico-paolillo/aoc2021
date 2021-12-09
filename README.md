@@ -4,25 +4,31 @@ The exercises from [Advent of Code 2021](https://adventofcode.com/2021) solved i
 
 ## Usage
 
-There is one file for each day (`day_one.py`, `day_two.py`, etc...) with its corresponding unit test (`test_day_one.py`, `test_day_two.py`, etc...).  
+There is one file for each day (`day_one.py`, `day_two.py`, etc...) with its corresponding unit test (`test_day_one.py`, `test_day_two.py`, etc...).
 
-To run the project execute its unit tests using `python3 -m unittest`.  
+To run the project execute its unit tests using `python3 -m unittest`.
 
 The project has no dependencies.
 
 ## Day 1: Sonar Sweep - Part one
 
-You're minding your own business on a ship at sea when the overboard alarm goes off! You rush to see if you can help. Apparently, one of the Elves tripped and accidentally sent the sleigh keys flying into the ocean!  
+You're minding your own business on a ship at sea when the overboard alarm goes off! You rush to see if you can help. Apparently, one of the Elves
+tripped and accidentally sent the sleigh keys flying into the ocean!
 
-Before you know it, you're inside a submarine the Elves keep ready for situations like this. It's covered in Christmas lights (because of course it is), and it even has an experimental antenna that should be able to track the keys if you can boost its signal strength high enough; there's a little meter that indicates the antenna's signal strength by displaying 0-50 stars.  
+Before you know it, you're inside a submarine the Elves keep ready for situations like this. It's covered in Christmas lights (because of course it
+is), and it even has an experimental antenna that should be able to track the keys if you can boost its signal strength high enough; there's a little
+meter that indicates the antenna's signal strength by displaying 0-50 stars.
 
-Your instincts tell you that in order to save Christmas, you'll need to get all fifty stars by December 25th.  
+Your instincts tell you that in order to save Christmas, you'll need to get all fifty stars by December 25th.
 
-Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the first. Each puzzle grants one star. Good luck!
+Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you
+complete the first. Each puzzle grants one star. Good luck!
 
-As the submarine drops below the surface of the ocean, it automatically performs a sonar sweep of the nearby sea floor. On a small screen, the sonar sweep report (your puzzle input) appears: each line is a measurement of the sea floor depth as the sweep looks further and further away from the submarine.  
+As the submarine drops below the surface of the ocean, it automatically performs a sonar sweep of the nearby sea floor. On a small screen, the sonar
+sweep report (your puzzle input) appears: each line is a measurement of the sea floor depth as the sweep looks further and further away from the
+submarine.
 
-For example, suppose you had the following report:  
+For example, suppose you had the following report:
 
 ```
 199
@@ -37,11 +43,13 @@ For example, suppose you had the following report:
 263
 ```
 
-This report indicates that, scanning outward from the submarine, the sonar sweep found depths of 199, 200, 208, 210, and so on.  
+This report indicates that, scanning outward from the submarine, the sonar sweep found depths of 199, 200, 208, 210, and so on.
 
-The first order of business is to figure out how quickly the depth increases, just so you know what you're dealing with - you never know if the keys will get carried into deeper water by an ocean current or a fish or something.  
+The first order of business is to figure out how quickly the depth increases, just so you know what you're dealing with - you never know if the keys
+will get carried into deeper water by an ocean current or a fish or something.
 
-To do this, count *the number of times a depth measurement increases* from the previous measurement. (There is no measurement before the first measurement.) In the example above, the changes are as follows:  
+To do this, count *the number of times a depth measurement increases* from the previous measurement. (There is no measurement before the first
+measurement.) In the example above, the changes are as follows:
 
 ```
 199 (N/A - no previous measurement)
@@ -56,17 +64,17 @@ To do this, count *the number of times a depth measurement increases* from the p
 263 (increased)
 ```
 
-In this example, there are 7 measurements that are larger than the previous measurement.  
+In this example, there are 7 measurements that are larger than the previous measurement.
 
-*How many measurements are larger than the previous measurement?*  
+*How many measurements are larger than the previous measurement?*
 
 Your puzzle answer was **1548**.
 
 ## Day 1: Sonar Sweep - Part Two
 
-Considering every single measurement isn't as useful as you expected: there's just too much noise in the data.  
+Considering every single measurement isn't as useful as you expected: there's just too much noise in the data.
 
-Instead, consider sums of a *three-measurement sliding window*. Again considering the above example:  
+Instead, consider sums of a *three-measurement sliding window*. Again considering the above example:
 
 ```
 199  A      
@@ -81,11 +89,14 @@ Instead, consider sums of a *three-measurement sliding window*. Again considerin
 263        H
 ```
 
-Start by comparing the first and second three-measurement windows. The measurements in the first window are marked A (199, 200, 208); their sum is 199 + 200 + 208 = 607. The second window is marked B (200, 208, 210); its sum is 618. The sum of measurements in the second window is larger than the sum of the first, so this first comparison *increased*.  
+Start by comparing the first and second three-measurement windows. The measurements in the first window are marked A (199, 200, 208); their sum is 199
++ 200 + 208 = 607. The second window is marked B (200, 208, 210); its sum is 618. The sum of measurements in the second window is larger than the sum
+of the first, so this first comparison *increased*.
 
-Your goal now is to count *the number of times the sum of measurements in this sliding window increases* from the previous sum. So, compare A with B, then compare B with C, then C with D, and so on. Stop when there aren't enough measurements left to create a new three-measurement sum.
+Your goal now is to count *the number of times the sum of measurements in this sliding window increases* from the previous sum. So, compare A with B,
+then compare B with C, then C with D, and so on. Stop when there aren't enough measurements left to create a new three-measurement sum.
 
-In the above example, the sum of each three-measurement window is as follows:  
+In the above example, the sum of each three-measurement window is as follows:
 
 ```
 A: 607 (N/A - no previous sum)
@@ -98,24 +109,24 @@ G: 769 (increased)
 H: 792 (increased)
 ```
 
-In this example, there are 5 sums that are larger than the previous sum.
-Consider sums of a three-measurement sliding window. *How many sums are larger than the previous sum?*
+In this example, there are 5 sums that are larger than the previous sum. Consider sums of a three-measurement sliding window. *How many sums are
+larger than the previous sum?*
 
 Your puzzle answer was **1589**.
 
 ## Day 2: Dive! - Part One
 
-Now, you need to figure out how to pilot this thing.  
+Now, you need to figure out how to pilot this thing.
 
-It seems like the submarine can take a series of commands like `forward 1`, `down 2`, or `up 3`:  
+It seems like the submarine can take a series of commands like `forward 1`, `down 2`, or `up 3`:
 
 `forward X` increases the horizontal position by X units.  
 `down X` increases the depth by X units.  
-`up X` decreases the depth by X units.  
+`up X` decreases the depth by X units.
 
-Note that since you're on a submarine, `down` and `up` affect your *depth*, and so they have the opposite result of what you might expect.  
+Note that since you're on a submarine, `down` and `up` affect your *depth*, and so they have the opposite result of what you might expect.
 
-The submarine seems to already have a planned course (your puzzle input). You should probably figure out where it's going. For example:  
+The submarine seems to already have a planned course (your puzzle input). You should probably figure out where it's going. For example:
 
 ```
 forward 5
@@ -126,7 +137,7 @@ down 8
 forward 2
 ```
 
-Your horizontal position and depth both start at 0. The steps above would then modify them as follows:  
+Your horizontal position and depth both start at 0. The steps above would then modify them as follows:
 
 - `forward 5` adds `5` to your horizontal position, a total of `5`.
 - `down 5` adds `5` to your depth, resulting in a value of `5`.
@@ -135,6 +146,9 @@ Your horizontal position and depth both start at 0. The steps above would then m
 - `down 8` adds `8` to your depth, resulting in a value of `10`.
 - `forward 2` adds `2` to your horizontal position, a total of `15`.
 
-After following these instructions, you would have a horizontal position of 15 and a depth of 10. (Multiplying these together produces *150*.)  
+After following these instructions, you would have a horizontal position of 15 and a depth of 10. (Multiplying these together produces *150*.)
 
-Calculate the horizontal position and depth you would have after following the planned course. *What do you get if you multiply your final horizontal position by your final depth?*  
+Calculate the horizontal position and depth you would have after following the planned course. *What do you get if you multiply your final horizontal
+position by your final depth?*
+
+Your puzzle answer was **1840243**

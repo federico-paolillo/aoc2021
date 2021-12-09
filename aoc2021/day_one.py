@@ -1,5 +1,10 @@
-def part_one(measurements):
-    previous_measurement = None
+from typing import Iterable, Optional
+
+_SLIDING_WINDOW_SIZE = 3
+
+
+def part_one(measurements: Iterable[int]) -> int:
+    previous_measurement: Optional[int] = None
     total_increments = 0
 
     for measurement in measurements:
@@ -11,8 +16,9 @@ def part_one(measurements):
     return total_increments
 
 
-def part_two(measurements):
-    sliding_windows = (measurements[index:index + 3] for index, _ in enumerate(measurements))
-    sliding_windows_totals = (sum(sliding_window) for sliding_window in sliding_windows if len(sliding_window) == 3)
+def part_two(measurements: list[int]) -> int:
+    sliding_windows = (measurements[index:index + _SLIDING_WINDOW_SIZE] for index, _ in enumerate(measurements))
+    sliding_windows_totals = (sum(sliding_window) for sliding_window in sliding_windows if
+                              len(sliding_window) == _SLIDING_WINDOW_SIZE)
 
     return part_one(sliding_windows_totals)

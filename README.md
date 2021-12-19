@@ -12,21 +12,20 @@ The project has no dependencies.
 
 ## Day 1: Sonar Sweep - Part one
 
-You're minding your own business on a ship at sea when the overboard alarm goes off! You rush to see if you can help. Apparently, one of the Elves
-tripped and accidentally sent the sleigh keys flying into the ocean!
+You're minding your own business on a ship at sea when the overboard alarm goes off! You rush to see if you can help. Apparently, one of the Elves tripped and
+accidentally sent the sleigh keys flying into the ocean!
 
-Before you know it, you're inside a submarine the Elves keep ready for situations like this. It's covered in Christmas lights (because of course it
-is), and it even has an experimental antenna that should be able to track the keys if you can boost its signal strength high enough; there's a little
-meter that indicates the antenna's signal strength by displaying 0-50 stars.
+Before you know it, you're inside a submarine the Elves keep ready for situations like this. It's covered in Christmas lights (because of course it is), and it
+even has an experimental antenna that should be able to track the keys if you can boost its signal strength high enough; there's a little meter that indicates
+the antenna's signal strength by displaying 0-50 stars.
 
 Your instincts tell you that in order to save Christmas, you'll need to get all fifty stars by December 25th.
 
-Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you
-complete the first. Each puzzle grants one star. Good luck!
+Collect stars by solving puzzles. Two puzzles will be made available on each day in the Advent calendar; the second puzzle is unlocked when you complete the
+first. Each puzzle grants one star. Good luck!
 
-As the submarine drops below the surface of the ocean, it automatically performs a sonar sweep of the nearby sea floor. On a small screen, the sonar
-sweep report (your puzzle input) appears: each line is a measurement of the sea floor depth as the sweep looks further and further away from the
-submarine.
+As the submarine drops below the surface of the ocean, it automatically performs a sonar sweep of the nearby sea floor. On a small screen, the sonar sweep
+report (your puzzle input) appears: each line is a measurement of the sea floor depth as the sweep looks further and further away from the submarine.
 
 For example, suppose you had the following report:
 
@@ -45,11 +44,11 @@ For example, suppose you had the following report:
 
 This report indicates that, scanning outward from the submarine, the sonar sweep found depths of 199, 200, 208, 210, and so on.
 
-The first order of business is to figure out how quickly the depth increases, just so you know what you're dealing with - you never know if the keys
-will get carried into deeper water by an ocean current or a fish or something.
+The first order of business is to figure out how quickly the depth increases, just so you know what you're dealing with - you never know if the keys will get
+carried into deeper water by an ocean current or a fish or something.
 
-To do this, count *the number of times a depth measurement increases* from the previous measurement. (There is no measurement before the first
-measurement.) In the example above, the changes are as follows:
+To do this, count *the number of times a depth measurement increases* from the previous measurement. (There is no measurement before the first measurement.) In
+the example above, the changes are as follows:
 
 ```
 199 (N/A - no previous measurement)
@@ -91,11 +90,11 @@ Instead, consider sums of a *three-measurement sliding window*. Again considerin
 
 Start by comparing the first and second three-measurement windows. The measurements in the first window are marked A (199, 200, 208); their sum is 199
 
-+ 200 + 208 = 607. The second window is marked B (200, 208, 210); its sum is 618. The sum of measurements in the second window is larger than the sum
-  of the first, so this first comparison *increased*.
++ 200 + 208 = 607. The second window is marked B (200, 208, 210); its sum is 618. The sum of measurements in the second window is larger than the sum of the
+  first, so this first comparison *increased*.
 
-Your goal now is to count *the number of times the sum of measurements in this sliding window increases* from the previous sum. So, compare A with B,
-then compare B with C, then C with D, and so on. Stop when there aren't enough measurements left to create a new three-measurement sum.
+Your goal now is to count *the number of times the sum of measurements in this sliding window increases* from the previous sum. So, compare A with B, then
+compare B with C, then C with D, and so on. Stop when there aren't enough measurements left to create a new three-measurement sum.
 
 In the above example, the sum of each three-measurement window is as follows:
 
@@ -110,8 +109,8 @@ G: 769 (increased)
 H: 792 (increased)
 ```
 
-In this example, there are 5 sums that are larger than the previous sum. Consider sums of a three-measurement sliding window. *How many sums are
-larger than the previous sum?*
+In this example, there are 5 sums that are larger than the previous sum. Consider sums of a three-measurement sliding window. *How many sums are larger than the
+previous sum?*
 
 Your puzzle answer was **1589**.
 
@@ -149,18 +148,18 @@ Your horizontal position and depth both start at 0. The steps above would then m
 
 After following these instructions, you would have a horizontal position of 15 and a depth of 10. (Multiplying these together produces *150*.)
 
-Calculate the horizontal position and depth you would have after following the planned course. *What do you get if you multiply your final horizontal
-position by your final depth?*
+Calculate the horizontal position and depth you would have after following the planned course. *What do you get if you multiply your final horizontal position
+by your final depth?*
 
 Your puzzle answer was **1840243**
 
 ## Day 2: Dive! - Part Two
 
-Based on your calculations, the planned course doesn't seem to make any sense. You find the submarine manual and discover that the process is actually
-slightly more complicated.
+Based on your calculations, the planned course doesn't seem to make any sense. You find the submarine manual and discover that the process is actually slightly
+more complicated.
 
-In addition to horizontal position and depth, you'll also need to track a third value, aim, which also starts at 0. The commands also mean something
-entirely different than you first thought:
+In addition to horizontal position and depth, you'll also need to track a third value, aim, which also starts at 0. The commands also mean something entirely
+different than you first thought:
 
 - `down X` increases your aim by `X` units.
 - `up X` decreases your aim by `X` units.
@@ -181,8 +180,8 @@ Now, the above example does something different:
 
 After following these new instructions, you would have a horizontal position of `15` and a depth of `60`. (Multiplying these produces `900`.)
 
-Using this new interpretation of the commands, calculate the horizontal position and depth you would have after following the planned course. *What do
-you get if you multiply your final horizontal position by your final depth?*
+Using this new interpretation of the commands, calculate the horizontal position and depth you would have after following the planned course. *What do you get
+if you multiply your final horizontal position by your final depth?*
 
 Your puzzle answer was **1727785422**
 
@@ -193,11 +192,11 @@ The submarine has been making some odd creaking noises, so you ask it to produce
 The diagnostic report (your puzzle input) consists of a list of binary numbers which, when decoded properly, can tell you many useful things about the
 conditions of the submarine. The first parameter to check is the *power consumption*.
 
-You need to use the binary numbers in the diagnostic report to generate two new binary numbers (called the *gamma rate* and the *epsilon rate*). The
-power consumption can then be found by multiplying the gamma rate by the epsilon rate.
+You need to use the binary numbers in the diagnostic report to generate two new binary numbers (called the *gamma rate* and the *epsilon rate*). The power
+consumption can then be found by multiplying the gamma rate by the epsilon rate.
 
-Each bit in the gamma rate can be determined by finding *the most common bit in the corresponding position* of all numbers in the diagnostic report.
-For example, given the following diagnostic report:
+Each bit in the gamma rate can be determined by finding *the most common bit in the corresponding position* of all numbers in the diagnostic report. For
+example, given the following diagnostic report:
 
 ```
 00100
@@ -214,21 +213,20 @@ For example, given the following diagnostic report:
 01010
 ```
 
-Considering only the first bit of each number, there are five `0` bits and seven `1` bits. Since the most common bit is `1`, the first bit of the
-gamma rate is `1`.
+Considering only the first bit of each number, there are five `0` bits and seven `1` bits. Since the most common bit is `1`, the first bit of the gamma rate
+is `1`.
 
 The most common second bit of the numbers in the diagnostic report is `0`, so the second bit of the gamma rate is `0`.
 
-The most common value of the third, fourth, and fifth bits are `1`, `1`, and `0`, respectively, and so the final three bits of the gamma rate
-are `110`.
+The most common value of the third, fourth, and fifth bits are `1`, `1`, and `0`, respectively, and so the final three bits of the gamma rate are `110`.
 
 So, the gamma rate is the binary number `10110`, or `22` in decimal.
 
-The epsilon rate is calculated in a similar way; rather than use the most common bit, the least common bit from each position is used. So, the epsilon
-rate is `01001`, or `9` in decimal. Multiplying the gamma rate (`22`) by the epsilon rate (`9`) produces the power consumption, `198`.
+The epsilon rate is calculated in a similar way; rather than use the most common bit, the least common bit from each position is used. So, the epsilon rate
+is `01001`, or `9` in decimal. Multiplying the gamma rate (`22`) by the epsilon rate (`9`) produces the power consumption, `198`.
 
-Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. *What is the power
-consumption of the submarine?* (Be sure to represent your answer in decimal, not binary.)
+Use the binary numbers in your diagnostic report to calculate the gamma rate and epsilon rate, then multiply them together. *What is the power consumption of
+the submarine?* (Be sure to represent your answer in decimal, not binary.)
 
 Your puzzle answer was **4191876**.
 
@@ -236,64 +234,63 @@ Your puzzle answer was **4191876**.
 
 Next, you should verify the *life support rating*, which can be determined by multiplying the *oxygen generator rating* by the *CO2 scrubber rating*.
 
-Both the oxygen generator rating and the CO2 scrubber rating are values that can be found in your diagnostic report - finding them is the tricky part.
-Both values are located using a similar process that involves filtering out values until only one remains. Before searching for either rating value,
-start with the full list of binary numbers from your diagnostic report and *consider just the first bit* of those numbers. Then:
+Both the oxygen generator rating and the CO2 scrubber rating are values that can be found in your diagnostic report - finding them is the tricky part. Both
+values are located using a similar process that involves filtering out values until only one remains. Before searching for either rating value, start with the
+full list of binary numbers from your diagnostic report and *consider just the first bit* of those numbers. Then:
 
-- Keep only numbers selected by the bit criteria for the type of rating value for which you are searching. Discard numbers which do not match the bit
-  criteria.
+- Keep only numbers selected by the bit criteria for the type of rating value for which you are searching. Discard numbers which do not match the bit criteria.
 - If you only have one number left, stop; this is the rating value for which you are searching.
 - Otherwise, repeat the process, considering the next bit to the right.
 
 The *bit criteria* depends on which type of rating value you want to find:
 
-- To find *oxygen generator rating*, determine the *most common* value (`0` or `1`) in the current bit position, and keep only numbers with that bit
-  in that position. If `0` and `1` are equally common, keep values with a `1` in the position being considered.
-- To find *CO2 scrubber rating*, determine the *least common* value (`0` or `1`) in the current bit position, and keep only numbers with that bit in
-  that position. If `0` and `1` are equally common, keep values with a 0 in the position being considered.
+- To find *oxygen generator rating*, determine the *most common* value (`0` or `1`) in the current bit position, and keep only numbers with that bit in that
+  position. If `0` and `1` are equally common, keep values with a `1` in the position being considered.
+- To find *CO2 scrubber rating*, determine the *least common* value (`0` or `1`) in the current bit position, and keep only numbers with that bit in that
+  position. If `0` and `1` are equally common, keep values with a 0 in the position being considered.
 
 For example, to determine the *oxygen generator rating* value using the same example diagnostic report from above:
 
-- Start with all 12 numbers and consider only the first bit of each number. There are more 1 bits (7) than `0` bits (5), so keep only the 7 numbers
-  with a `1` in the first position: `11110`, `10110`, `10111`, `10101`, `11100`, `10000`, and `11001`.
-- Then, consider the second bit of the 7 remaining numbers: there are more `0` bits (4) than `1` bits (3), so keep only the 4 numbers with a 0 in the
-  second position: `10110`, `10111`, `10101`, and `10000`.
+- Start with all 12 numbers and consider only the first bit of each number. There are more 1 bits (7) than `0` bits (5), so keep only the 7 numbers with a `1`
+  in the first position: `11110`, `10110`, `10111`, `10101`, `11100`, `10000`, and `11001`.
+- Then, consider the second bit of the 7 remaining numbers: there are more `0` bits (4) than `1` bits (3), so keep only the 4 numbers with a 0 in the second
+  position: `10110`, `10111`, `10101`, and `10000`.
 - In the third position, three of the four numbers have a `1`, so keep those three: `10110`, `10111`, and `10101`.
 - In the fourth position, two of the three numbers have a `1`, so keep those two: `10110` and `10111`.
-- In the fifth position, there are an equal number of `0` bits and `1` bits (one each). So, to find the *oxygen generator rating*, keep the number
-  with a `1` in that position: `10111`.
+- In the fifth position, there are an equal number of `0` bits and `1` bits (one each). So, to find the *oxygen generator rating*, keep the number with a `1` in
+  that position: `10111`.
 - As there is only one number left, stop; the *oxygen generator rating* is `10111`, or `23` in decimal.
 
 Then, to determine the *CO2 scrubber rating* value from the same example above:
 
-- Start again with all 12 numbers and consider only the first bit of each number. There are fewer `0` bits (5) than `1` bits (7), so keep only the 5
-  numbers with a `0` in the first position: `00100`, `01111`, `00111`, `00010`, and `01010`.
-- Then, consider the second bit of the 5 remaining numbers: there are fewer `1` bits (2) than `0` bits (3), so keep only the 2 numbers with a `1` in
-  the second position: `01111` and `01010`.
-- In the third position, there are an equal number of `0` bits and `1` bits (one each). So, to find the *CO2 scrubber rating*, keep the number with
-  a `0` in that position: `01010`.
+- Start again with all 12 numbers and consider only the first bit of each number. There are fewer `0` bits (5) than `1` bits (7), so keep only the 5 numbers
+  with a `0` in the first position: `00100`, `01111`, `00111`, `00010`, and `01010`.
+- Then, consider the second bit of the 5 remaining numbers: there are fewer `1` bits (2) than `0` bits (3), so keep only the 2 numbers with a `1` in the second
+  position: `01111` and `01010`.
+- In the third position, there are an equal number of `0` bits and `1` bits (one each). So, to find the *CO2 scrubber rating*, keep the number with a `0` in
+  that position: `01010`.
 - As there is only one number left, stop; the *CO2 scrubber rating* is `01010`, or `10` in decimal.
 
 Finally, to find the life support rating, multiply the oxygen generator rating (`23`) by the CO2 scrubber rating (`10`) to get `230`.
 
-Use the binary numbers in your diagnostic report to calculate the oxygen generator rating and CO2 scrubber rating, then multiply them together. *What
-is the life support rating of the submarine?* (Be sure to represent your answer in decimal, not binary.)
+Use the binary numbers in your diagnostic report to calculate the oxygen generator rating and CO2 scrubber rating, then multiply them together. *What is the
+life support rating of the submarine?* (Be sure to represent your answer in decimal, not binary.)
 
 Your puzzle answer was **3414905**.
 
 ## Day 4: Giant squid - Part One
 
-You're already almost 1.5km (almost a mile) below the surface of the ocean, already so deep that you can't see any sunlight. What you can see,
-however, is a giant squid that has attached itself to the outside of your submarine.
+You're already almost 1.5km (almost a mile) below the surface of the ocean, already so deep that you can't see any sunlight. What you can see, however, is a
+giant squid that has attached itself to the outside of your submarine.
 
 Maybe it wants to play bingo?
 
-Bingo is played on a set of boards each consisting of a 5x5 grid of numbers. Numbers are chosen at random, and the chosen number is marked on all
-boards on which it appears. (Numbers may not appear on all boards.) If all numbers in any row or any column of a board are marked, that board wins. (
+Bingo is played on a set of boards each consisting of a 5x5 grid of numbers. Numbers are chosen at random, and the chosen number is marked on all boards on
+which it appears. (Numbers may not appear on all boards.) If all numbers in any row or any column of a board are marked, that board wins. (
 Diagonals don't count.)
 
-The submarine has a *bingo subsystem* to help passengers (currently, you and the giant squid) pass the time. It automatically generates a random order
-in which to draw numbers and a random set of boards (your puzzle input). For example:
+The submarine has a *bingo subsystem* to help passengers (currently, you and the giant squid) pass the time. It automatically generates a random order in which
+to draw numbers and a random set of boards (your puzzle input). For example:
 
 ```
 7,4,9,5,11,17,23,2,0,14,21,24,10,16,13,6,15,25,12,22,18,20,8,19,3,26,1
@@ -317,8 +314,8 @@ in which to draw numbers and a random set of boards (your puzzle input). For exa
  2  0 12  3  7
 ```
 
-After the first five numbers are drawn (`7`, `4`, `9`, `5`, and `11`), there are no winners, but the boards are marked as follows (shown here adjacent
-to each other to save space):
+After the first five numbers are drawn (`7`, `4`, `9`, `5`, and `11`), there are no winners, but the boards are marked as follows (shown here adjacent to each
+other to save space):
 
 ```
 22 13 17 11  0         3 15  0  2 22        14 21 17 24  4
@@ -348,11 +345,11 @@ Finally, `24` is drawn:
  1 12 20 15 19        14 21 16 12  6         2  0 12  3  7
 ```
 
-At this point, the third board *wins* because it has at least one complete row or column of marked numbers (in this case, the entire top row is
-marked: 14 21 17 24 4).
+At this point, the third board *wins* because it has at least one complete row or column of marked numbers (in this case, the entire top row is marked: 14 21 17
+24 4).
 
-The *score* of the winning board can now be calculated. Start by finding the sum of all unmarked numbers on that board; in this case, the sum is 188.
-Then, multiply that sum by *the number that was just called* when the board won, `24`, to get the final score, `188 * 24 = 4512`.
+The *score* of the winning board can now be calculated. Start by finding the sum of all unmarked numbers on that board; in this case, the sum is 188. Then,
+multiply that sum by *the number that was just called* when the board won, `24`, to get the final score, `188 * 24 = 4512`.
 
 To guarantee victory against the giant squid, figure out which board will win first. *What will your final score be if you choose that board?*
 
@@ -365,9 +362,8 @@ On the other hand, it might be wise to try a different strategy: let the giant s
 You aren't sure how many bingo boards a giant squid could play at once, so rather than waste time counting its arms, the safe thing to do is to *
 figure out which board will win last* and choose that one. That way, no matter which boards it picks, it will win for sure.
 
-In the above example, the second board is the last to win, which happens after `13` is eventually called and its middle column is completely marked.
-If you were to keep playing until this point, the second board would have a sum of unmarked numbers equal to `148` for a final score
-of `148 * 13 = 1924`.
+In the above example, the second board is the last to win, which happens after `13` is eventually called and its middle column is completely marked. If you were
+to keep playing until this point, the second board would have a sum of unmarked numbers equal to `148` for a final score of `148 * 13 = 1924`.
 
 Figure out which board will win last. *Once it wins, what would its final score be?*
 
@@ -375,8 +371,8 @@ Your puzzle answer was **6256**.
 
 ## Day 5: Hydrothermal Venture - Part One
 
-You come across a field of hydrothermal vents on the ocean floor! These vents constantly produce large, opaque clouds, so it would be best to avoid
-them if possible.
+You come across a field of hydrothermal vents on the ocean floor! These vents constantly produce large, opaque clouds, so it would be best to avoid them if
+possible.
 
 They tend to form in *lines;* the submarine helpfully produces a list of nearby lines of vents (your puzzle input) for you to review. For example:
 
@@ -416,12 +412,12 @@ So, the horizontal and vertical lines from the above list would produce the foll
 222111....
 ```
 
-In this diagram, the top left corner is `0,0` and the bottom right corner is `9,9`. Each position is shown as *the number of lines which cover that
-point* or . if no line covers that point. The top-left pair of 1s, for example, comes from `2,2 -> 2,1`; the very bottom row is formed by the
-overlapping lines `0,9 -> 5,9` and `0,9 -> 2,9`.
+In this diagram, the top left corner is `0,0` and the bottom right corner is `9,9`. Each position is shown as *the number of lines which cover that point* or .
+if no line covers that point. The top-left pair of 1s, for example, comes from `2,2 -> 2,1`; the very bottom row is formed by the overlapping lines `0,9 -> 5,9`
+and `0,9 -> 2,9`.
 
-To avoid the most dangerous areas, you need to determine *the number of points where at least two lines overlap*. In the above example, this is
-anywhere in the diagram with a `2` or larger - a total of `5` points.
+To avoid the most dangerous areas, you need to determine *the number of points where at least two lines overlap*. In the above example, this is anywhere in the
+diagram with a `2` or larger - a total of `5` points.
 
 Consider only horizontal and vertical lines. *At how many points do at least two lines overlap?*
 
@@ -431,8 +427,8 @@ Your puzzle answer was **7297**.
 
 Unfortunately, considering only horizontal and vertical lines doesn't give you the full picture; you need to also consider *diagonal lines*.
 
-Because of the limits of the hydrothermal vent mapping system, the lines in your list will only ever be horizontal, vertical, or a diagonal line at
-exactly 45 degrees. In other words:
+Because of the limits of the hydrothermal vent mapping system, the lines in your list will only ever be horizontal, vertical, or a diagonal line at exactly 45
+degrees. In other words:
 
 - An entry like `1,1 -> 3,3` covers points `1,1`, `2,2`, and `3,3`.
 - An entry like `9,7 -> 7,9` covers points `9,7`, `8,8`, and `7,9`.
@@ -452,8 +448,8 @@ Considering all lines from the above example would now produce the following dia
 222111....
 ```
 
-You still need to determine *the number of points where at least two lines overlap.* In the above example, this is still anywhere in the diagram with
-a `2` or larger - now a total of `12` points.
+You still need to determine *the number of points where at least two lines overlap.* In the above example, this is still anywhere in the diagram with a `2` or
+larger - now a total of `12` points.
 
 Consider all of the lines. *At how many points do at least two lines overlap?*
 
@@ -463,18 +459,17 @@ Your puzzle answer was **21038**.
 
 The sea floor is getting steeper. Maybe the sleigh keys got carried this way?
 
-A massive school of glowing lanternfish swims past. They must spawn quickly to reach such large numbers - maybe *exponentially* quickly? You should
-model their growth rate to be sure.
+A massive school of glowing lanternfish swims past. They must spawn quickly to reach such large numbers - maybe *exponentially* quickly? You should model their
+growth rate to be sure.
 
-Although you know nothing about this specific species of lanternfish, you make some guesses about their attributes. Surely, each lanternfish creates a
-new lanternfish once every 7 days.
+Although you know nothing about this specific species of lanternfish, you make some guesses about their attributes. Surely, each lanternfish creates a new
+lanternfish once every 7 days.
 
-However, this process isn't necessarily synchronized between every lanternfish - one lanternfish might have 2 days left until it creates another
-lanternfish, while another might have 4. So, you can model each fish as a single number that represents *the number of days until it creates a new
-lanternfish.*
+However, this process isn't necessarily synchronized between every lanternfish - one lanternfish might have 2 days left until it creates another lanternfish,
+while another might have 4. So, you can model each fish as a single number that represents *the number of days until it creates a new lanternfish.*
 
-Furthermore, you reason, a *new* lanternfish would surely need slightly longer before it's capable of producing more lanternfish: two more days for
-its first cycle.
+Furthermore, you reason, a *new* lanternfish would surely need slightly longer before it's capable of producing more lanternfish: two more days for its first
+cycle.
 
 So, suppose you have a lanternfish with an internal timer value of `3`:
 
@@ -484,16 +479,16 @@ So, suppose you have a lanternfish with an internal timer value of `3`:
 - After another day, its internal timer would reset to `6`, and it would create a *new* lanternfish with an internal timer of `8`.
 - After another day, the first lanternfish would have an internal timer of `5`, and the second lanternfish would have an internal timer of `7`.
 
-A lanternfish that creates a new fish resets its timer to `6`, not `7` (because `0` is included as a valid timer value). The new lanternfish starts
-with an internal timer of 8 and does not start counting down until the next day.
+A lanternfish that creates a new fish resets its timer to `6`, not `7` (because `0` is included as a valid timer value). The new lanternfish starts with an
+internal timer of 8 and does not start counting down until the next day.
 
-Realizing what you're trying to do, the submarine automatically produces a list of the ages of several hundred nearby lanternfish (your puzzle input).
-For example, suppose you were given the following list:
+Realizing what you're trying to do, the submarine automatically produces a list of the ages of several hundred nearby lanternfish (your puzzle input). For
+example, suppose you were given the following list:
 
 `3,4,3,1,2`
 
-This list means that the first fish has an internal timer of `3`, the second fish has an internal timer of `4`, and so on until the fifth fish, which
-has an internal timer of `2`. Simulating these fish over several days would proceed as follows:
+This list means that the first fish has an internal timer of `3`, the second fish has an internal timer of `4`, and so on until the fifth fish, which has an
+internal timer of `2`. Simulating these fish over several days would proceed as follows:
 
 ```
 Initial state: 3,4,3,1,2
@@ -517,8 +512,7 @@ After 17 days: 0,1,0,5,6,0,1,2,2,3,0,1,2,2,2,3,3,4,4,5,7,8
 After 18 days: 6,0,6,4,5,6,0,1,1,2,6,0,1,1,1,2,2,3,3,4,6,7,8,8,8,8
 ```
 
-Each day, a `0` becomes a `6` and adds a new `8` to the end of the list, while each other number decreases by 1 if it was present at the start of the
-day.
+Each day, a `0` becomes a `6` and adds a new `8` to the end of the list, while each other number decreases by 1 if it was present at the start of the day.
 
 In this example, after 18 days, there are a total of `26` fish. After 80 days, there would be a total of `5934`.
 
@@ -536,3 +530,159 @@ After 256 days in the example above, there would be a total of `26984457539` lan
 
 Your puzzle answer was **1613415325809.**
 
+## Day 8: Seven Segment Search - Part One
+
+You barely reach the safety of the cave when the whale smashes into the cave mouth, collapsing it. Sensors indicate another exit to this cave at a much greater
+depth, so you have no choice but to press on.
+
+As your submarine slowly makes its way through the cave system, you notice that the four-digit seven-segment displays in your submarine are malfunctioning; they
+must have been damaged during the escape. You'll be in a lot of trouble without them, so you'd better figure out what's wrong.
+
+Each digit of a seven-segment display is rendered by turning on or off any of seven segments named `a` through `g`:
+
+```
+  0:      1:      2:      3:      4:
+ aaaa    ....    aaaa    aaaa    ....
+b    c  .    c  .    c  .    c  b    c
+b    c  .    c  .    c  .    c  b    c
+ ....    ....    dddd    dddd    dddd
+e    f  .    f  e    .  .    f  .    f
+e    f  .    f  e    .  .    f  .    f
+ gggg    ....    gggg    gggg    ....
+
+  5:      6:      7:      8:      9:
+ aaaa    aaaa    aaaa    aaaa    aaaa
+b    .  b    .  .    c  b    c  b    c
+b    .  b    .  .    c  b    c  b    c
+ dddd    dddd    ....    dddd    dddd
+.    f  e    f  .    f  e    f  .    f
+.    f  e    f  .    f  e    f  .    f
+ gggg    gggg    ....    gggg    gggg
+``` 
+
+So, to render a `1`, only segments `c` and `f` would be turned on; the rest would be off. To render a `7`, only segments `a`, `c`, and `f` would be turned on.
+
+The problem is that the signals which control the segments have been mixed up on each display. The submarine is still trying to display numbers by producing
+output on signal wires `a` through `g`, but those wires are connected to segments *randomly*. Worse, the wire/segment connections are mixed up separately for
+each four-digit display! (All of the digits *within* a display use the same connections, though.)
+
+So, you might know that only signal wires `b` and `g` are turned on, but that doesn't mean segments `b` and `g` are turned on: the only digit that uses two
+segments is `1`, so it must mean segments `c` and `f` are meant to be on. With just that information, you still can't tell which wire (`b`/`g`) goes to which
+segment (`c`/`f`). For that, you'll need to collect more information.
+
+For each display, you watch the changing signals for a while, make a note of **all ten unique signal patterns** you see, and then write down a single **four
+digit output value** (your puzzle input). Using the signal patterns, you should be able to work out which pattern corresponds to which digit.
+
+For example, here is what you might see in a single entry in your notes:
+
+```
+acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
+cdfeb fcadb cdfeb cdbaf
+```
+
+(The entry is wrapped here to two lines so it fits; in your notes, it will all be on a single line.)
+
+Each entry consists of ten *unique signal patterns*, a `|` delimiter, and finally the *four digit output value*. Within an entry, the same wire/segment
+connections are used (but you don't know what the connections actually are). The unique signal patterns correspond to the ten different ways the submarine tries
+to render a digit using the current wire/segment connections. Because `7` is the only digit that uses three segments, `dab` in the above example means that to
+render a `7`, signal lines `d`, `a`, and `b` are on. Because `4` is the only digit that uses four segments, `eafb` means that to render a `4`, signal lines `e`
+, `a`, `f`, and `b` are on.
+
+Using this information, you should be able to work out which combination of signal wires corresponds to each of the ten digits. Then, you can decode the four
+digit output value. Unfortunately, in the above example, all of the digits in the output value (`cdfeb fcadb cdfeb cdbaf`) use five segments and are more
+difficult to deduce.
+
+For now, *focus on the easy digits*. Consider this larger example:
+
+```
+be cfbegad cbdgef fgaecd cgeb fdcge agebfd fecdb fabcd edb |
+fdgacbe cefdb cefbgd gcbe
+edbfga begcd cbg gc gcadebf fbgde acbgfd abcde gfcbed gfec |
+fcgedb cgb dgebacf gc
+fgaebd cg bdaec gdafb agbcfd gdcbef bgcad gfac gcb cdgabef |
+cg cg fdcagb cbg
+fbegcd cbd adcefb dageb afcb bc aefdc ecdab fgdeca fcdbega |
+efabcd cedba gadfec cb
+aecbfdg fbg gf bafeg dbefa fcge gcbea fcaegb dgceab fcbdga |
+gecf egdcabf bgf bfgea
+fgeab ca afcebg bdacfeg cfaedg gcfdb baec bfadeg bafgc acf |
+gebdcfa ecba ca fadegcb
+dbcfg fgd bdegcaf fgec aegbdf ecdfab fbedc dacgb gdcebf gf |
+cefg dcbef fcge gbcadfe
+bdfegc cbegaf gecbf dfcage bdacg ed bedf ced adcbefg gebcd |
+ed bcgafe cdgba cbgef
+egadfb cdbfeg cegd fecab cgb gbdefca cg fgcdab egfdb bfceg |
+gbdfcae bgc cg cgb
+gcafb gcf dcaebfg ecagb gf abcdeg gaef cafbge fdbac fegbdc |
+fgae cfgab fg bagce
+```
+
+Because the digits `1`, `4`, `7`, and `8` each use a unique number of segments, you should be able to tell which combinations of signals correspond to those
+digits. Counting *only digits in the output values* (the part after `|` on each line), in the above example, there are `26` instances of digits that use a
+unique number of segments (highlighted above).
+
+*In the output values, how many times do digits `1`, `4`, `7`, or `8` appear?*
+
+Your puzzle answer was **488**.
+
+## Day 8: Seven Segment Search - Part Two
+
+Through a little deduction, you should now be able to determine the remaining digits. Consider again the first example above:
+
+```
+acedgfb cdfbe gcdfa fbcad dab cefabd cdfgeb eafb cagedb ab |
+cdfeb fcadb cdfeb cdbaf
+```
+
+After some careful analysis, the mapping between signal wires and segments only make sense in the following configuration:
+
+```
+ dddd
+e    a
+e    a
+ ffff
+g    b
+g    b
+ cccc
+```
+
+So, the unique signal patterns would correspond to the following digits:
+
+- `acedgfb`: `8`
+- `cdfbe`: `5`
+- `gcdfa`: `2`
+- `fbcad`: `3`
+- `dab`: `7`
+- `cefabd`: `9`
+- `cdfgeb`: `6`
+- `eafb`: `4`
+- `cagedb`: `0`
+- `ab`: `1`
+
+Then, the four digits of the output value can be decoded:
+
+- `cdfeb`: `5`
+- `fcadb`: `3`
+- `cdfeb`: `5`
+- `cdbaf`: `3`
+
+Therefore, the output value for this entry is `5353`.
+
+Following this same process for each entry in the second, larger example above, the output value of each entry can be determined:
+
+- `fdgacbe cefdb cefbgd gcbe`: `8394`
+- `fcgedb cgb dgebacf gc`: `9781`
+- `cg cg fdcagb cbg`: `1197`
+- `efabcd cedba gadfec cb`: `9361`
+- `gecf egdcabf bgf bfgea`: `4873`
+- `gebdcfa ecba ca fadegcb`: `8418`
+- `cefg dcbef fcge gbcadfe`: `4548`
+- `ed bcgafe cdgba cbgef`: `1625`
+- `gbdfcae bgc cg cgb`: `8717`
+- `fgae cfgab fg bagce`: `4315`
+
+Adding all of the output values in this larger example produces `61229`.
+
+For each entry, determine all of the wire/segment connections and decode the four-digit output values. *What do you get if you add up all of the output values?*
+
+Your puzzle answer was **1040429**.

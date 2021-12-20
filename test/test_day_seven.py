@@ -1,6 +1,6 @@
 import unittest
 
-from day_seven import part_one
+from day_seven import part_one, part_two
 
 _PUZZLE_CRABS = [
     1101, 1, 29, 67, 1102, 0, 1, 65, 1008, 65, 35, 66, 1005, 66, 28, 1, 67, 65, 20, 4, 0, 1001, 65, 1, 65, 1106, 0, 8, 99, 35, 67, 101, 99, 105, 32, 110, 39,
@@ -39,7 +39,7 @@ _PUZZLE_CRABS = [
 
 
 class MyTestCase(unittest.TestCase):
-    def test_solves_example_crabs_correctly(self):
+    def test_part_one_solves_example_crabs_correctly(self):
         crabs = [
             16,
             1,
@@ -57,7 +57,30 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(37, fuel_consumption)
 
-    def test_solves_puzzle_crabs_correctly(self):
+    def test_part_one_solves_puzzle_crabs_correctly(self):
         fuel_consumption = part_one(_PUZZLE_CRABS)
 
         self.assertEqual(340056, fuel_consumption)
+
+    def test_part_two_solves_example_crabs_correctly(self):
+        crabs = [
+            16,
+            1,
+            2,
+            0,
+            4,
+            2,
+            7,
+            1,
+            2,
+            14
+        ]
+
+        fuel_consumption = part_two(crabs)
+
+        self.assertEqual(168, fuel_consumption)
+
+    def test_part_two_solves_puzzle_crabs_correctly(self):
+        fuel_consumption = part_two(_PUZZLE_CRABS)
+
+        self.assertEqual(96592275, fuel_consumption)

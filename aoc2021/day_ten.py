@@ -1,4 +1,3 @@
-import statistics
 from dataclasses import dataclass
 
 _PARENS = {
@@ -102,5 +101,5 @@ def part_one(syntax_lines):
 def part_two(syntax_lines):
     results = (check_parens(syntax_line) for syntax_line in syntax_lines)
     scores = sorted(result.score() for result in results if isinstance(result, IncompleteSyntaxResult))
-    middle_score = scores[len(scores)//2]
+    middle_score = scores[len(scores) // 2]
     return middle_score

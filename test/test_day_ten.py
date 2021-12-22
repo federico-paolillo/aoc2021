@@ -1,6 +1,6 @@
 import unittest
 
-from day_ten import check_parens, part_one, CorruptSyntaxResult, IncompleteSyntaxResult, CorrectSyntaxResult, part_two
+from aoc2021.day_ten import check_parens, part_one, CorruptSyntaxResult, IncompleteSyntaxResult, CorrectSyntaxResult, part_two
 
 _PUZZLE_SYNTAX_LINES = [
     "[(<[(({{<{{[{({})}{<{}{}><()<>>}]}[{[({}{})]([{}()](<>{}))}[<<[]()]>[<[]<>>{[]()}]]]}{[[[{[][]}{[]()}]",

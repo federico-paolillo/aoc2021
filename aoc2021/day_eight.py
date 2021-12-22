@@ -32,7 +32,6 @@ def _find_decoding_map(scrambled_signal):
     patterns_left_to_decode.remove(number_7_pattern)
 
     number_8_pattern = next(pattern for pattern in patterns_left_to_decode if len(pattern) == 7)
-    number_8_segments = set(number_8_pattern)
 
     patterns_left_to_decode.remove(number_8_pattern)
 

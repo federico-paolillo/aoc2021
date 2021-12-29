@@ -1,11 +1,11 @@
 name: aoc2021_continuous_integration
 on: push
-defaults:
-  run:
-    working-directory: ${{env.GITHUB_WORKSPACE}}
 jobs:
   continuous_integration:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{env.GITHUB_WORKSPACE}}
     steps:
       - name: Checkout
         uses: actions/checkout@v2

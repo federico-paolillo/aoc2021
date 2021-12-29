@@ -1,4 +1,4 @@
-name: aoc2021_continuous_integration
+name: AoC 2021 Continuous Integration
 on: push
 jobs:
   continuous_integration:

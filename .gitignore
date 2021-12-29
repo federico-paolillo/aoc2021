@@ -138,4 +138,11 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# PyCharm settings
 .idea/
+
+# Coverage.py data
+.coverage
+
+# Coverage.py reports
+coverage.xml

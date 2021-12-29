@@ -1,6 +1,6 @@
 import unittest
 
-from day_nine import part_one, part_two
+from aoc2021.day_nine import part_one, part_two
 
 _PUZZLE_HEIGHT_MAP = [
     [7, 8, 5, 7, 6, 7, 9, 8, 7, 6, 5, 4, 5, 9, 8, 7, 6, 4, 3, 2, 5, 6, 7, 8, 9, 7, 6, 7, 8, 9, 4, 5, 9, 2, 1, 2, 9, 8, 7, 5, 4, 3, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7,

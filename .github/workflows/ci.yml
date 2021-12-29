@@ -1,0 +1,30 @@
+name: aoc2021_continuous_integration
+on: push
+defaults:
+  run:
+    working-directory: ${{env.GITHUB_WORKSPACE}}
+jobs:
+  continuous_integration:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Python 3.9
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.9'
+      - name: Install Pipenv
+        run: pip install --user pipenv
+      - name: Install Dependencies
+        run: pipenv install
+      - name: Run tests with coverage
+        run: pipenv run coverage run -m unittest
+      - name: Digest coverage
+        run: pipenv run coverage xml
+      - name: Upload coverage
+        uses: codecov/codecov-action@v2
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true
+          verbose: true
+          name: 'AoC 2021 Codecov'

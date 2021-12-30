@@ -1,4 +1,4 @@
-## Day 8: Seven Segment Search
+# Day 8: Seven Segment Search
 
 ## Part One
 

@@ -1,4 +1,4 @@
-## Day 5: Hydrothermal Venture
+# Day 5: Hydrothermal Venture
 
 ## Part One
 

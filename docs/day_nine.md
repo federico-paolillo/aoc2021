@@ -1,4 +1,4 @@
-## Day 9: Smoke Basin
+# Day 9: Smoke Basin
 
 ## Part One
 

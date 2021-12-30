@@ -1,4 +1,4 @@
-## Day 7: The Treachery of Whales
+# Day 7: The Treachery of Whales
 
 ## Part One
 

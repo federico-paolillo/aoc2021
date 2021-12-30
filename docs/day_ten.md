@@ -1,4 +1,4 @@
-## Day 10: Syntax Scoring
+# Day 10: Syntax Scoring
 
 ## Part One
 

@@ -1,4 +1,4 @@
-## Day 6: Lanternfish
+# Day 6: Lanternfish
 
 ## Part One
 

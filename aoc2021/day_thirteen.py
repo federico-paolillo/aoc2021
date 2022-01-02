@@ -47,7 +47,7 @@ def fold_along_y(points, fold):
     return fold_along(points, fold, lambda point: point[1], lambda old_point, new_coordinate: (old_point[0], new_coordinate))
 
 
-def visualize_points(points):
+def stringify_points(points):
     xs = [point[0] for point in points]
     ys = [point[1] for point in points]
 

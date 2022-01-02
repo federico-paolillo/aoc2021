@@ -29,3 +29,4 @@ I manage my virtual env with Pipenv, if you have Pipenv installed just run `pipe
 - [Day Nine](docs/day_nine.md)
 - [Day Ten](docs/day_ten.md)
 - [Day Eleven](docs/day_eleven.md)
+- [Day Thirteen](docs/day_thriteen.md)

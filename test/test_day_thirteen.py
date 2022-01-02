@@ -1,7 +1,7 @@
 import inspect
 import unittest
 
-from day_thirteen import fold_along_y, fold_along_x, part_one, FoldInstruction, FoldInstructionAxis, part_two, visualize_points
+from aoc2021.day_thirteen import fold_along_y, fold_along_x, part_one, FoldInstruction, FoldInstructionAxis, part_two, visualize_points
 
 _PUZZLE_POINTS = [
     (428, 532),
@@ -1003,8 +1003,17 @@ class DayThirteenTestCase(unittest.TestCase):
         self.assertEqual(17, len(points_left_after_first_fold))
 
         points_left_after_second_fold = fold_along_x(points_left_after_first_fold, 5)
+        points_visualized = visualize_points(points_left_after_second_fold)
 
         self.assertEqual(16, len(points_left_after_second_fold))
+
+        self.assertEqual(inspect.cleandoc("""
+            #####
+            #...#
+            #...#
+            #...#
+            #####
+        """), points_visualized)
 
     def test_part_one_folds_puzzle_points_correctly(self):
         points_left = part_one(_PUZZLE_POINTS)

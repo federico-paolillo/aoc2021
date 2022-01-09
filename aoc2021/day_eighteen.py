@@ -25,7 +25,7 @@ def _scan_up_right(node, visited):
         return node
 
     # If we are stepping back in a node that we visited already we go up
-    if node in visited:
+    if any(visited_node is node for visited_node in visited):
         return _scan_up_right(node.parent, visited)
 
     visited.append(node)
@@ -50,7 +50,7 @@ def _scan_up_left(node, visited):
         return node
 
     # If we are stepping back in a node that we visited already we go up
-    if node in visited:
+    if any(visited_node is node for visited_node in visited):
         return _scan_up_left(node.parent, visited)
 
     visited.append(node)
@@ -67,7 +67,7 @@ def _scan_down_right(node):
         return node
 
     # We just drill down to the right
-    return _scan_down_left(node.right)
+    return _scan_down_right(node.right)
 
 
 def _find_rightmost_regular_number(current_node):
@@ -81,7 +81,7 @@ def _find_rightmost_regular_number(current_node):
     # If we reached root, we scan down and left from root.right
     # But only if root.right was not already visited
     # If root.right was visited there is nothing to do but returning None
-    if regular_number_or_root.right in visited:
+    if any(visited_node is regular_number_or_root.right for visited_node in visited):
         return None
 
     return _scan_down_left(regular_number_or_root.right)
@@ -98,7 +98,7 @@ def _find_leftmost_regular_number(current_node):
     # If we reached root, we scan down and left from root.right
     # But only if root.right was not already visited
     # If root.right was visited there is nothing to do but returning None
-    if regular_number_or_root.left in visited:
+    if any(visited_node is regular_number_or_root.left for visited_node in visited):
         return None
 
     return _scan_down_right(regular_number_or_root.left)
@@ -316,22 +316,24 @@ class SnailfishNumber:
     def __eq__(self, other):
         if not isinstance(other, SnailfishNumber):
             return False
+
         return other.left == self.left and other.right == self.right
 
     def __add__(self, other):
         if not isinstance(other, SnailfishNumber):
             return NotImplemented
-        if self.can_reduce():
-            raise ValueError(f'{self} is not reduced')
-        if other.can_reduce():
-            raise ValueError(f'{other} is not reduced')
+
+        self.reduce()
+        other.reduce()
+
         return SnailfishNumber(self, other)
 
     def __iadd__(self, other):
         if not isinstance(other, SnailfishNumber):
             return NotImplemented
 
-        # TODO: Check for reduce()
+        self.reduce()
+        other.reduce()
 
         self.left = SnailfishNumber(self.left, self.right)
         self.right = other

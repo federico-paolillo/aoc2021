@@ -58,7 +58,7 @@ class Line:
         return line_angle
 
     def __str__(self):
-        return f'({self.x1},{self.y1}) -> ({self.x2},{self.y2})'
+        return f'({self.x1}, {self.y1}) -> ({self.x2}, {self.y2})'
 
 
 def _parse_line(raw_line) -> Line:

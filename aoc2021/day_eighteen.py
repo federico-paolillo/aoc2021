@@ -20,40 +20,88 @@ def _find_parts_separator_index(snailfish_number_string_without_parens):
     return None
 
 
-def _find_rightmost_regular_number(current_node, visited=None):
-    if not current_node:
+def _scan_up_right(node, visited):
+    if node.is_root():
+        return node
+
+    # If we are stepping back in a node that we visited already we go up
+    if node in visited:
+        return _scan_up_right(node.parent, visited)
+
+    visited.append(node)
+
+    if isinstance(node, RegularNumber):
+        return node
+
+    # We try to scan right for a regular number
+    return _scan_up_right(node.right, visited)
+
+
+def _scan_down_left(node):
+    if isinstance(node, RegularNumber):
+        return node
+
+    # We just drill down to the left
+    return _scan_down_left(node.left)
+
+
+def _scan_up_left(node, visited):
+    if node.is_root():
+        return node
+
+    # If we are stepping back in a node that we visited already we go up
+    if node in visited:
+        return _scan_up_left(node.parent, visited)
+
+    visited.append(node)
+
+    if isinstance(node, RegularNumber):
+        return node
+
+    # We try to scan left for a regular number
+    return _scan_up_left(node.left, visited)
+
+
+def _scan_down_right(node):
+    if isinstance(node, RegularNumber):
+        return node
+
+    # We just drill down to the right
+    return _scan_down_left(node.right)
+
+
+def _find_rightmost_regular_number(current_node):
+    visited = [current_node]
+
+    regular_number_or_root = _scan_up_right(current_node, visited)
+
+    if isinstance(regular_number_or_root, RegularNumber):
+        return regular_number_or_root
+
+    # If we reached root, we scan down and left from root.right
+    # But only if root.right was not already visited
+    # If root.right was visited there is nothing to do but returning None
+    if regular_number_or_root.right in visited:
         return None
 
-    if not visited:
-        visited = [current_node]
-
-    if current_node in visited:
-        return _find_rightmost_regular_number(current_node.parent, visited)
-
-    if isinstance(current_node, RegularNumber):
-        return current_node
-
-    visited.append(current_node)
-
-    return _find_rightmost_regular_number(current_node.right, visited)
+    return _scan_down_left(regular_number_or_root.right)
 
 
-def _find_leftmost_regular_number(current_node, visited=None):
-    if not current_node:
+def _find_leftmost_regular_number(current_node):
+    visited = [current_node]
+
+    regular_number_or_root = _scan_up_left(current_node, visited)
+
+    if isinstance(regular_number_or_root, RegularNumber):
+        return regular_number_or_root
+
+    # If we reached root, we scan down and left from root.right
+    # But only if root.right was not already visited
+    # If root.right was visited there is nothing to do but returning None
+    if regular_number_or_root.left in visited:
         return None
 
-    if not visited:
-        visited = [current_node]
-
-    if current_node in visited:
-        return _find_leftmost_regular_number(current_node.parent, visited)
-
-    if isinstance(current_node, RegularNumber):
-        return current_node
-
-    visited.append(current_node)
-
-    return _find_leftmost_regular_number(current_node.left, visited)
+    return _scan_down_right(regular_number_or_root.left)
 
 
 def _calculate_nesting(node):
@@ -108,7 +156,7 @@ class RegularNumber:
         if not self.can_split():
             return
 
-        if not self.parent:
+        if self.is_root():
             return
 
         floor = math.floor(self.value / 2)
@@ -118,6 +166,9 @@ class RegularNumber:
 
     def explode(self):
         pass
+
+    def is_root(self):
+        return self.parent is None
 
     def __repr__(self):
         return f'RegularNumber({repr(self.value)})'
@@ -136,9 +187,6 @@ class RegularNumber:
             return NotImplemented
 
         return RegularNumber(self.value + other.value)
-
-    def __radd__(self, other):
-        return self + other
 
     def __iadd__(self, other):
         if not isinstance(other, RegularNumber):
@@ -256,6 +304,9 @@ class SnailfishNumber:
             self.explode()
             self.split()
 
+    def is_root(self):
+        return self.parent is None
+
     def __str__(self):
         return f'[{self.left}, {self.right}]'
 
@@ -276,12 +327,11 @@ class SnailfishNumber:
             raise ValueError(f'{other} is not reduced')
         return SnailfishNumber(self, other)
 
-    def __radd__(self, other):
-        return self + other
-
     def __iadd__(self, other):
         if not isinstance(other, SnailfishNumber):
             return NotImplemented
+
+        # TODO: Check for reduce()
 
         self.left = SnailfishNumber(self.left, self.right)
         self.right = other

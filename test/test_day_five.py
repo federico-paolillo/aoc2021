@@ -72,3 +72,8 @@ class DayFiveTestCase(unittest.TestCase):
         number_of_overlaps = part_two(lines)
 
         self.assertEqual(number_of_overlaps, 21038)
+
+    def test__str__(self):
+        line = Line(1, 2, 1, 3)
+
+        self.assertEqual('(1, 2) -> (1, 3)', str(line))

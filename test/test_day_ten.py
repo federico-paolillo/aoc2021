@@ -1,6 +1,6 @@
 import unittest
 
-from aoc2021.day_ten import check_parens, part_one, CorruptSyntaxResult, IncompleteSyntaxResult, CorrectSyntaxResult, part_two
+from aoc2021.day_ten import check_parens, part_one, CorruptSyntaxResult, IncompleteSyntaxResult, CorrectSyntaxResult, part_two, UnknownSyntaxResult
 
 _PUZZLE_SYNTAX_LINES = [
     "[(<[(({{<{{[{({})}{<{}{}><()<>>}]}[{[({}{})]([{}()](<>{}))}[<<[]()]>[<[]<>>{[]()}]]]}{[[[{[][]}{[]()}]",
@@ -124,6 +124,10 @@ class DayTenTestCase(unittest.TestCase):
     def test_matcher_detects_correct_parens(self):
         result = check_parens('()[]')
         self.assertIsInstance(result, CorrectSyntaxResult)
+
+    def test_matcher_detects_unknown_syntax(self):
+        result = check_parens('[garb[]age]')
+        self.assertIsInstance(result, UnknownSyntaxResult)
 
     def test_matcher_detects_example_correct_parens(self):
         syntax = [

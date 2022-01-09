@@ -152,8 +152,8 @@ class DayFourTestCase(unittest.TestCase):
             bingo_board.mark_number(number_drawn)
             if bingo_board.has_won():
                 break
-        else:
-            self.fail('Bingo board did not win')
+
+        self.assertTrue(bingo_board.has_won())
 
     def test_day_four_part_one_solves_example_boards_correctly(self):
         numbers_to_draw = [

@@ -5,7 +5,86 @@
 import math
 
 
-def _find_parts_separator_index(snailfish_number_string_without_parens):
+def _scan_up_right_for_ancestor(node, visited=None):
+    if not node:
+        return None
+
+    if not visited:
+        visited = [node, node.right]
+    else:
+        visited.append(node)
+
+    if any(visited_node is node.right for visited_node in visited):
+        return _scan_up_right_for_ancestor(node.parent, visited)
+
+    return node
+
+
+def _scan_down_left_for_regular_number(node):
+    if isinstance(node, RegularNumber):
+        return node
+
+    return _scan_down_left_for_regular_number(node.left)
+
+
+def _scan_up_left_for_ancestor(node, visited=None):
+    if not node:
+        return None
+
+    if not visited:
+        visited = [node, node.left]
+    else:
+        visited.append(node)
+
+    if any(visited_node is node.left for visited_node in visited):
+        return _scan_up_left_for_ancestor(node.parent, visited)
+
+    return node
+
+
+def _scan_down_right_for_regular_number(node):
+    if isinstance(node, RegularNumber):
+        return node
+
+    return _scan_down_right_for_regular_number(node.right)
+
+
+def _find_rightmost_regular_number(current_node):
+    if current_node is current_node.parent.left:
+        return _scan_down_left_for_regular_number(current_node.parent.right)
+
+    ancestor = _scan_up_right_for_ancestor(current_node)
+
+    if ancestor:
+        return _scan_down_left_for_regular_number(ancestor.right)
+
+    return None
+
+
+def _find_leftmost_regular_number(current_node):
+    if current_node is current_node.parent.right:
+        return _scan_down_right_for_regular_number(current_node.parent.left)
+
+    ancestor = _scan_up_left_for_ancestor(current_node)
+
+    if ancestor:
+        return _scan_down_right_for_regular_number(ancestor.left)
+
+    return None
+
+
+def _calculate_nesting(node):
+    parents_count = 0
+    current_parent = node.parent
+
+    while current_parent:
+        current_parent = current_parent.parent
+        parents_count = parents_count + 1
+
+    return parents_count
+
+
+def _find_pair_separator_index(snailfish_number_string_without_parens):
     parens_stack = []
 
     for index, char in enumerate(snailfish_number_string_without_parens):
@@ -20,101 +99,6 @@ def _find_parts_separator_index(snailfish_number_string_without_parens):
     return None
 
 
-def _scan_up_right(node, visited):
-    if node.is_root():
-        return node
-
-    # If we are stepping back in a node that we visited already we go up
-    if any(visited_node is node for visited_node in visited):
-        return _scan_up_right(node.parent, visited)
-
-    visited.append(node)
-
-    if isinstance(node, RegularNumber):
-        return node
-
-    # We try to scan right for a regular number
-    return _scan_up_right(node.right, visited)
-
-
-def _scan_down_left(node):
-    if isinstance(node, RegularNumber):
-        return node
-
-    # We just drill down to the left
-    return _scan_down_left(node.left)
-
-
-def _scan_up_left(node, visited):
-    if node.is_root():
-        return node
-
-    # If we are stepping back in a node that we visited already we go up
-    if any(visited_node is node for visited_node in visited):
-        return _scan_up_left(node.parent, visited)
-
-    visited.append(node)
-
-    if isinstance(node, RegularNumber):
-        return node
-
-    # We try to scan left for a regular number
-    return _scan_up_left(node.left, visited)
-
-
-def _scan_down_right(node):
-    if isinstance(node, RegularNumber):
-        return node
-
-    # We just drill down to the right
-    return _scan_down_right(node.right)
-
-
-def _find_rightmost_regular_number(current_node):
-    visited = [current_node]
-
-    regular_number_or_root = _scan_up_right(current_node, visited)
-
-    if isinstance(regular_number_or_root, RegularNumber):
-        return regular_number_or_root
-
-    # If we reached root, we scan down and left from root.right
-    # But only if root.right was not already visited
-    # If root.right was visited there is nothing to do but returning None
-    if any(visited_node is regular_number_or_root.right for visited_node in visited):
-        return None
-
-    return _scan_down_left(regular_number_or_root.right)
-
-
-def _find_leftmost_regular_number(current_node):
-    visited = [current_node]
-
-    regular_number_or_root = _scan_up_left(current_node, visited)
-
-    if isinstance(regular_number_or_root, RegularNumber):
-        return regular_number_or_root
-
-    # If we reached root, we scan down and left from root.right
-    # But only if root.right was not already visited
-    # If root.right was visited there is nothing to do but returning None
-    if any(visited_node is regular_number_or_root.left for visited_node in visited):
-        return None
-
-    return _scan_down_right(regular_number_or_root.left)
-
-
-def _calculate_nesting(node):
-    parents_count = 0
-    current_parent = node.parent
-
-    while current_parent:
-        current_parent = current_parent.parent
-        parents_count = parents_count + 1
-
-    return parents_count
-
-
 def parse_snailfish_number(snailfish_number_string):
     if snailfish_number_string.isnumeric():
         return RegularNumber(int(snailfish_number_string))
@@ -123,7 +107,7 @@ def parse_snailfish_number(snailfish_number_string):
     snailfish_number_string_without_parens = snailfish_number_string[1:-1]
 
     # We have to find the index of the separator that divides the parts of the number
-    parts_separator_comma_index = _find_parts_separator_index(snailfish_number_string_without_parens)
+    parts_separator_comma_index = _find_pair_separator_index(snailfish_number_string_without_parens)
 
     if not parts_separator_comma_index:
         raise ValueError(f'Value {snailfish_number_string} is not a valid snailfish number')
@@ -264,8 +248,10 @@ class SnailfishNumber:
         if self.can_explode():
             return
 
-        self.left.split()
-        self.right.split()
+        if self.left.can_split():
+            self.left.split()
+        elif self.right.can_split():
+            self.right.split()
 
     def explode(self):
         if not self.can_explode():
@@ -283,9 +269,10 @@ class SnailfishNumber:
                 leftmost_regular_number += self.left
 
             self.parent.replace(self, RegularNumber(0))
-
-        self.left.explode()
-        self.right.explode()
+        elif self.left.can_explode():
+            self.left.explode()
+        elif self.right.can_explode():
+            self.right.explode()
 
     def replace(self, node, replacement_node):
         if node.parent is not self:
@@ -301,8 +288,10 @@ class SnailfishNumber:
 
     def reduce(self):
         while self.can_reduce():
-            self.explode()
-            self.split()
+            if self.can_explode():
+                self.explode()
+            else:
+                self.split()
 
     def is_root(self):
         return self.parent is None
@@ -323,17 +312,13 @@ class SnailfishNumber:
         if not isinstance(other, SnailfishNumber):
             return NotImplemented
 
-        self.reduce()
-        other.reduce()
+        snailfish_number_sum = SnailfishNumber(self, other)
 
-        return SnailfishNumber(self, other)
+        return snailfish_number_sum
 
     def __iadd__(self, other):
         if not isinstance(other, SnailfishNumber):
             return NotImplemented
-
-        self.reduce()
-        other.reduce()
 
         self.left = SnailfishNumber(self.left, self.right)
         self.right = other

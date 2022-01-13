@@ -141,13 +141,18 @@ class DayEighteenTestCase(unittest.TestCase):
 
     def test_splitting_splits_snailfish_number_correctly(self):
         snailfish_number = parse_snailfish_number('[[[[0, 7], 4], [15, [0, 13]]], [1, 1]]')
-        snailfish_number_after_split = parse_snailfish_number('[[[[0, 7], 4], [[7, 8], [0, [6, 7]]]], [1, 1]]')
+        snailfish_number_after_first_split = parse_snailfish_number('[[[[0, 7], 4], [[7, 8], [0, 13]]], [1, 1]]')
+        snailfish_number_after_second_split = parse_snailfish_number('[[[[0, 7], 4], [[7, 8], [0, [6, 7]]]], [1, 1]]')
 
         self.assertTrue(snailfish_number.can_split())
 
         snailfish_number.split()
 
-        self.assertEqual(snailfish_number_after_split, snailfish_number)
+        self.assertEqual(snailfish_number_after_first_split, snailfish_number)
+
+        snailfish_number.split()
+
+        self.assertEqual(snailfish_number_after_second_split, snailfish_number)
 
     def test_splitting_does_not_split_root_regular_number(self):
         regular_number = RegularNumber(15)
@@ -161,13 +166,18 @@ class DayEighteenTestCase(unittest.TestCase):
 
     def test_explode_explodes_snailfish_number_correctly(self):
         snailfish_number = parse_snailfish_number('[[[[[4, 3], 4], 4], [7, [[8, 4], 9]]], [1, 1]]')
-        snailfish_number_after_explode = parse_snailfish_number('[[[[0, 7], 4], [15, [0, 13]]], [1, 1]]')
+        snailfish_number_after_first_explode = parse_snailfish_number('[[[[0, 7], 4], [7, [[8, 4], 9]]], [1, 1]]')
+        snailfish_number_after_second_explode = parse_snailfish_number('[[[[0, 7], 4], [15, [0, 13]]], [1, 1]]')
 
         self.assertTrue(snailfish_number.can_explode())
 
         snailfish_number.explode()
 
-        self.assertEqual(snailfish_number_after_explode, snailfish_number)
+        self.assertEqual(snailfish_number_after_first_explode, snailfish_number)
+
+        snailfish_number.explode()
+
+        self.assertEqual(snailfish_number_after_second_explode, snailfish_number)
 
     def test_explode_has_precedence_over_splitting(self):
         snailfish_number = parse_snailfish_number('[[[[[[1, 2], 10], 1], 1], 1], 1]')
@@ -207,3 +217,64 @@ class DayEighteenTestCase(unittest.TestCase):
         snailfish_number.replace(other_unrelated_snailfish_number, RegularNumber(1))
 
         self.assertEqual(snailfish_number_expected, snailfish_number)
+
+    def test_snailfish_number_reduction_steps_apply_to_one_snailfish_number_per_call(self):
+        snailfish_number_a = parse_snailfish_number('[[[[4,3],4],4],[7,[[8,4],9]]]')
+        snailfish_number_b = parse_snailfish_number('[1, 1]')
+
+        snailfish_number_total = snailfish_number_a + snailfish_number_b
+
+        self.assertEqual(parse_snailfish_number('[[[[[4,3],4],4],[7,[[8,4],9]]],[1,1]]'), snailfish_number_total)
+
+        snailfish_number_total.explode()
+
+        self.assertEqual(parse_snailfish_number('[[[[0,7],4],[7,[[8,4],9]]],[1,1]]'), snailfish_number_total)
+
+        snailfish_number_total.explode()
+
+        self.assertEqual(parse_snailfish_number('[[[[0,7],4],[15,[0,13]]],[1,1]]'), snailfish_number_total)
+
+        snailfish_number_total.split()
+
+        self.assertEqual(parse_snailfish_number('[[[[0,7],4],[[7,8],[0,13]]],[1,1]]'), snailfish_number_total)
+
+        snailfish_number_total.split()
+
+        self.assertEqual(parse_snailfish_number('[[[[0,7],4],[[7,8],[0,[6,7]]]],[1,1]]'), snailfish_number_total)
+
+        snailfish_number_total.explode()
+
+        self.assertEqual(parse_snailfish_number('[[[[0,7],4],[[7,8],[6,0]]],[8,1]]'), snailfish_number_total)
+
+        self.assertFalse(snailfish_number_total.can_reduce())
+
+    def test_snailfish_number_continuous_sums_are_correct(self):
+        snailfish_number_a = parse_snailfish_number('[1, 1]')
+        snailfish_number_b = parse_snailfish_number('[2, 2]')
+        snailfish_number_c = parse_snailfish_number('[3, 3]')
+        snailfish_number_d = parse_snailfish_number('[4, 4]')
+        snailfish_number_e = parse_snailfish_number('[5, 5]')
+
+        snailfish_number_expected = parse_snailfish_number('[[[[3,0],[5,3]],[4,4]],[5,5]]')
+
+        snailfish_sum = snailfish_number_a + snailfish_number_b + snailfish_number_c + snailfish_number_d + snailfish_number_e
+
+        snailfish_sum.reduce()
+
+        self.assertEqual(snailfish_number_expected, snailfish_sum)
+
+    def test_snailfish_number_continuous_sums_are_correct_2(self):
+        snailfish_number_a = parse_snailfish_number('[1, 1]')
+        snailfish_number_b = parse_snailfish_number('[2, 2]')
+        snailfish_number_c = parse_snailfish_number('[3, 3]')
+        snailfish_number_d = parse_snailfish_number('[4, 4]')
+        snailfish_number_e = parse_snailfish_number('[5, 5]')
+        snailfish_number_f = parse_snailfish_number('[6, 6]')
+
+        snailfish_number_expected = parse_snailfish_number('[[[[5,0],[7,4]],[5,5]],[6,6]]')
+
+        snailfish_sum = snailfish_number_a + snailfish_number_b + snailfish_number_c + snailfish_number_d + snailfish_number_e + snailfish_number_f
+
+        snailfish_sum.reduce()
+
+        self.assertEqual(snailfish_number_expected, snailfish_sum)

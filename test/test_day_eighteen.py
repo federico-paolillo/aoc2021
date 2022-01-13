@@ -278,3 +278,73 @@ class DayEighteenTestCase(unittest.TestCase):
         snailfish_sum.reduce()
 
         self.assertEqual(snailfish_number_expected, snailfish_sum)
+
+    def test_snailfish_number_continuous_sums_are_correct_3(self):
+        numbers = [
+            '[[[0, [4, 5]], [0, 0]], [[[4, 5], [2, 6]], [9, 5]]]',
+            '[7, [[[3, 7], [4, 3]], [[6, 3], [8, 8]]]]',
+            '[[2, [[0, 8], [3, 4]]], [[[6, 7], 1], [7, [1, 6]]]]',
+            '[[[[2, 4], 7], [6, [0, 5]]], [[[6, 8], [2, 8]], [[2, 1], [4, 5]]]]',
+            '[7, [5, [[3, 8], [1, 4]]]]',
+            '[[2, [2, 2]], [8, [8, 1]]]',
+            '[2, 9]',
+            '[1, [[[9, 3], 9], [[9, 0], [0, 7]]]]',
+            '[[[5, [7, 4]], 7], 1]',
+            '[[[[4, 2], 2], 6], [8, 7]]'
+        ]
+
+        snailfish_number_expected = parse_snailfish_number('[[[[8,7],[7,7]],[[8,6],[7,7]]],[[[0,7],[6,6]],[8,7]]]')
+
+        snailfish_numbers = map(parse_snailfish_number, numbers)
+
+        total = None
+
+        for snailfish_number in snailfish_numbers:
+            if not total:
+                total = snailfish_number
+            else:
+                total = total + snailfish_number
+                total.reduce()
+
+        self.assertEqual(snailfish_number_expected, total)
+
+    def test_splitting_does_not_split_regular_number_that_cant_split(self):
+        regular_number = RegularNumber(1)
+
+        self.assertFalse(regular_number.can_split())
+
+        regular_number.split()
+
+        self.assertEqual(RegularNumber(1), regular_number)
+
+    def test_regular_numbers_do_not_explode(self):
+        regular_number = RegularNumber(1)
+
+        self.assertFalse(regular_number.can_explode())
+
+        regular_number.explode()
+
+        self.assertEqual(RegularNumber(1), regular_number)
+
+    def test_splitting_does_not_split_snailfish_number_that_cant_split(self):
+        snailfish_number = SnailfishNumber(1, 2)
+
+        self.assertFalse(snailfish_number.can_split())
+
+        snailfish_number.split()
+
+        self.assertEqual(SnailfishNumber(1, 2), snailfish_number)
+
+    def test_exploding_does_not_split_snailfish_number_that_cant_explode(self):
+        snailfish_number = SnailfishNumber(1, 2)
+
+        self.assertFalse(snailfish_number.can_explode())
+
+        snailfish_number.explode()
+
+        self.assertEqual(SnailfishNumber(1, 2), snailfish_number)
+
+    def test_snailfish_number_without_parent_is_root(self):
+        snailfish_number = SnailfishNumber(1, 2)
+
+        self.assertTrue(snailfish_number.is_root())

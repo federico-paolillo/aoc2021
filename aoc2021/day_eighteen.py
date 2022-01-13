@@ -2,6 +2,8 @@
 
 # To find the separator index we search for the first separator that appears after all the 'left' part parenthesis have been closed
 # The comma that separates left from right can only appear after the left part is completely formed and 'closed'
+import copy
+import itertools
 import math
 
 
@@ -10,6 +12,7 @@ def _scan_up_right_for_ancestor(node, visited=None):
         return None
 
     if not visited:
+        # Initial call, we are not interested in anything on the right of the current node only up
         visited = [node, node.right]
     else:
         visited.append(node)
@@ -32,6 +35,7 @@ def _scan_up_left_for_ancestor(node, visited=None):
         return None
 
     if not visited:
+        # Initial call, we are not interested in anything on the left of the current node only up
         visited = [node, node.left]
     else:
         visited.append(node)
@@ -50,6 +54,11 @@ def _scan_down_right_for_regular_number(node):
 
 
 def _find_rightmost_regular_number(current_node):
+    # Given that we are in a tree and there are always leafs that are Regular Numbers
+    # If we are on the left of our parent the rightmost number has to be on the left of our parent right
+    # If we are on the right we have to find the first ancestor that has our node on the left
+    # Once we found that ancestor, the rightmost number will be on the left of the ancestor right
+
     if current_node is current_node.parent.left:
         return _scan_down_left_for_regular_number(current_node.parent.right)
 
@@ -62,6 +71,11 @@ def _find_rightmost_regular_number(current_node):
 
 
 def _find_leftmost_regular_number(current_node):
+    # Given that we are in a tree and there are always leafs that are Regular Numbers
+    # If we are on the right of our parent the leftmost number has to be on the right of our parent left
+    # If we are on the left we have to find the first ancestor that has our node on the right
+    # Once we found that ancestor, the leftmost number will be on the right of the ancestor left
+
     if current_node is current_node.parent.right:
         return _scan_down_right_for_regular_number(current_node.parent.left)
 
@@ -153,6 +167,9 @@ class RegularNumber:
 
     def is_root(self):
         return self.parent is None
+
+    def magnitude(self):
+        return self.value
 
     def __repr__(self):
         return f'RegularNumber({repr(self.value)})'
@@ -296,6 +313,9 @@ class SnailfishNumber:
     def is_root(self):
         return self.parent is None
 
+    def magnitude(self):
+        return (3 * self.left.magnitude()) + (2 * self.right.magnitude())
+
     def __str__(self):
         return f'[{self.left}, {self.right}]'
 
@@ -324,3 +344,39 @@ class SnailfishNumber:
         self.right = other
 
         return self
+
+
+def sum_snailfish_numbers(snailfish_numbers):
+    total = None
+
+    for snailfish_number in snailfish_numbers:
+        if not total:
+            total = snailfish_number
+        else:
+            total = total + snailfish_number
+            total.reduce()
+
+    return total
+
+
+def part_one(raw_snailfish_numbers):
+    snailfish_numbers = map(parse_snailfish_number, raw_snailfish_numbers)
+
+    total = sum_snailfish_numbers(snailfish_numbers)
+
+    return total.magnitude()
+
+
+def part_two(raw_snailfish_numbers):
+    snailfish_numbers = map(parse_snailfish_number, raw_snailfish_numbers)
+
+    snailfish_numbers_permutations = itertools.permutations(snailfish_numbers, 2)
+
+    # Snailfish Numbers are mutable, so we need to clone the permutations, otherwise we make a mess
+    snailfish_numbers_permutation_copies = (copy.deepcopy(permutation) for permutation in snailfish_numbers_permutations)
+
+    snailfish_numbers_sums = (sum_snailfish_numbers(permutation) for permutation in snailfish_numbers_permutation_copies)
+
+    max_magnitude = max(map(lambda number: number.magnitude(), snailfish_numbers_sums))
+
+    return max_magnitude

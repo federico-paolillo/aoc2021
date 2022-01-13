@@ -13,7 +13,7 @@ There is one file for each day (`day_one.py`, `day_two.py`, etc...) with its cor
 
 To run the project, execute its unit tests using `python3 -m unittest` from the repo root.
 
-The project has no dependencies except for development tools like `coverage.py` and `mypy`.  
+The project has no dependencies except for development tools like [`coverage.py`](https://coverage.readthedocs.io/en/6.2/) and `mypy`.  
 I manage my virtual env with Pipenv, if you have Pipenv installed just run `pipenv install` from the repo root to get the tools.
 
 ## Entries
@@ -29,4 +29,5 @@ I manage my virtual env with Pipenv, if you have Pipenv installed just run `pipe
 - [Day Nine](docs/day_nine.md)
 - [Day Ten](docs/day_ten.md)
 - [Day Eleven](docs/day_eleven.md)
-- [Day Thirteen](docs/day_thriteen.md)
+- [Day Thirteen](docs/day_thirteen.md)
+- [Day Eighteen](docs/day_eighteen.md)
